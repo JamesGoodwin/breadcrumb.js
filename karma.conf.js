@@ -14,7 +14,6 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'http://cdnjs.cloudflare.com/ajax/libs/jasmine/2.0.0/jasmine.js',
             'src/*.js',
             'spec/*Spec.js'
         ],
