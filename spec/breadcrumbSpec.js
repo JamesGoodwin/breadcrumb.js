@@ -1,30 +1,32 @@
 describe("Breadcrumb", function () {
 
-    var breadcrumb;
+    var breadcrumb, sessionStorage = new SessionStorage();
+    var google = "http://www.google.com";
+    var rightmove = "http://www.rightmove.co.uk";
 
     beforeEach(function () {
-        breadcrumb = new Breadcrumb();
+        sessionStorage.clear();
+        breadcrumb = new Breadcrumb(sessionStorage);
     });
 
-    it("should be able list the current Page", function() {
-        breadcrumb.add("http://www.google.com");
-        expect(breadcrumb.getCurrentPage()).toEqual("http://www.google.com");
+    it("should be able get the current Page", function () {
+        breadcrumb.add(google);
+        expect(breadcrumb.getCurrentPage()).toEqual(google);
     });
 
-    it("should be able to list the previous Page", function() {
-        breadcrumb.add("http://www.google.com");
-        breadcrumb.add("http://www.rightmove.co.uk");
-        expect(breadcrumb.getPreviousPage()).toEqual("http://www.google.com")
+    it("should be able to get the previous Page", function () {
+        breadcrumb.add(google);
+        breadcrumb.add(rightmove);
+        expect(breadcrumb.getPreviousPage()).toEqual(google)
     });
 
-    it("should be able to list the last Page of a given type", function() {
-
-    });
-
-    it("should be able to list all Pages visited", function(){
-        breadcrumb.add("http://www.google.com");
-        breadcrumb.add("http://www.rightmove.co.uk");
-        expect(breadcrumb.getPages().length).toEqual(2);
+    it("should be able to get all Pages visited", function () {
+        breadcrumb.add(google);
+        breadcrumb.add(rightmove);
+        var pages = breadcrumb.getHistory();
+        expect(pages.length).toEqual(2);
+        expect(pages[0]).toEqual(google);
+        expect(pages[1]).toEqual(rightmove);
     });
 
 });
